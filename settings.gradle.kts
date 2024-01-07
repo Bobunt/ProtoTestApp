@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ProtoTestApp"
 include(":app")
-include(":intellireader")
