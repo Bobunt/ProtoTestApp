@@ -7,7 +7,6 @@ import com.termt.intellireader.modules.Unspecified
 import com.termt.intellireader.transfer.IRTransfer
 import com.termt.intellireader.transport.IRTransportSerial
 import misc.buzzer.Buzzer
-import misc.leds.LedsOuterClass
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
