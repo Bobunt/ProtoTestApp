@@ -7,19 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.prototestapp.databinding.FragmentMainBinding
+import java.util.concurrent.atomic.AtomicBoolean
 
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.message.observe(this, {
+        viewModel.message.observe(this) {
             binding.textView.text = it
-        })
+        }
+        viewModel.messageCard.observe(this) {
+            binding.textView2.text = "result: $it"
+        }
     }
 
     override fun onCreateView(
@@ -34,8 +37,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.textView.text = "Кол/во Beeep = 0"
-        binding.button.setOnClickListener {
+        binding.beepBoot.setOnClickListener {
             viewModel.addBeep()
+        }
+        binding.cardLook.setOnClickListener {
+            viewModel.startLookCard()
         }
     }
 }
