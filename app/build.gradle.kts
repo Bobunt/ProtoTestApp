@@ -50,20 +50,18 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.jakewharton.threetenabp:threetenabp:1.4.6")
+
     // Lifecycle libraries
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-
-    implementation ("com.google.protobuf:protobuf-java:3.19.3")
 
     // Room
     implementation ("androidx.room:room-runtime:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
 
-    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
-
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     implementation (project(":intellireader"))
+    implementation ("com.google.protobuf:protobuf-java:3.4.0")
 
 }
