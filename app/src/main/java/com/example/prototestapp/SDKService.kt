@@ -9,14 +9,10 @@ interface SDKService {
         fun onSuccess()
 
         fun onError(e: Exception)
-
-        fun onNotFound()
     }
 
     interface RfSearchCallback<T> : Callback {
         fun onSuccess()
-
-        fun onNotFound()
 
         fun onError(e: Exception)
     }

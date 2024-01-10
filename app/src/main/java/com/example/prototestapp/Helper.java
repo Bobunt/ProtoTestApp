@@ -2,7 +2,6 @@ package com.example.prototestapp;
 
 import androidx.annotation.NonNull;
 
-import com.google.protobuf.ByteString;
 import com.termt.intellireader.api.errors.IRMessageFormatException;
 import com.termt.intellireader.api.errors.IRMessageIDMismatchException;
 import com.termt.intellireader.modules.ContactlessL1;
@@ -19,11 +18,9 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import contactless.poll.PollForTokenOuterClass;
-import contactless.token.TokenOuterClass;
-import contactless.token_type.TokenTypeOuterClass;
 import misc.buzzer.Buzzer;
 
-public class CardHelper {
+public class Helper {
 
     private final AtomicBoolean isPollingThreadRunning = new AtomicBoolean(false);
     private IRTransfer transfer;
@@ -45,6 +42,7 @@ public class CardHelper {
     }
     void searchRFCard(SDKService.CardCallback<String> cardCallback) {
         SDKService.RfSearchCallback<Integer> rfSearchCallback = new SDKService.RfSearchCallback<Integer>() {
+
             @Override
             public void onError(@NonNull Exception e) {
                 cardCallback.onError(e);
@@ -55,10 +53,6 @@ public class CardHelper {
                 cardCallback.onSuccess();
             }
 
-            @Override
-            public void onNotFound() {
-                cardCallback.onNotFound();
-            }
         };
         pollingStarted();
         PICC_Thread piccThread = new PICC_Thread(rfSearchCallback, 10000);
@@ -80,22 +74,17 @@ public class CardHelper {
         public void run() {
             try {
                 isPollingThreadRunning.set(true);
-
                 PollForTokenOuterClass.PollForToken.Builder builder = PollForTokenOuterClass.PollForToken.newBuilder();
                 builder.setTimeout((int)timeout);
                 PollForTokenOuterClass.PollingMode pollingMode = PollForTokenOuterClass.PollingMode.LOW_POWER_POLLING;
                 builder.setPollingMode(pollingMode);
                 PollForTokenOuterClass.PollForToken token = builder.build();
-                TokenOuterClass.Token pollResult = piccReader.pollForToken(token).unwrap();
-
-                TokenTypeOuterClass.TokenType tokenType = pollResult.getType();
-
-                isPollingThreadRunning.set(false);
+                piccReader.pollForToken(token).unwrap();
                 callback.onSuccess();
             } catch (IRMessageFormatException
                      | IRMessageIDMismatchException
                      | IllegalStateException ex) {
-                throw new RuntimeException(ex);
+                callback.onError(ex);
             }
         }
     }

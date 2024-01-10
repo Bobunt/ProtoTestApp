@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ProtoTestApp</string>
-    <string name="look_for_card">start card</string>
-    <string name="beeeeep">Beeeeep</string>
+    <string name="look_for_card">enable pulling</string>
+    <string name="beeeeep">get beep</string>
 
-    <string name="result">result: </string>
-    <string name="beeep">Кол/во Beeep =</string>
+    <string name="result">result:</string>
+    <string name="sum_beep">sum beep:</string>
 </resources>

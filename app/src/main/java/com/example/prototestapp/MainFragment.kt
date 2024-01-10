@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.prototestapp.databinding.FragmentMainBinding
-import java.util.concurrent.atomic.AtomicBoolean
 
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -17,10 +16,13 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.message.observe(this) {
-            binding.textView.text = it
+        viewModel.sumBeepMessage.observe(this) {
+            binding.textView.text = "sum beep: $it"
         }
-        viewModel.messageCard.observe(this) {
+        viewModel.pollingButton.observe(this) {
+            binding.cardLook.text = it
+        }
+        viewModel.pollingMessage.observe(this) {
             binding.textView2.text = "result: $it"
         }
     }
@@ -36,7 +38,6 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.textView.text = "Кол/во Beeep = 0"
         binding.beepBoot.setOnClickListener {
             viewModel.addBeep()
         }
